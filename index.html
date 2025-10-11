@@ -46,9 +46,13 @@
       background-size: cover;
       background-position: center;
     }
-		/* 50% Transparenz für den Titel auf der ersten Folie */
+    /* 50% Transparenz und Positionierung im unteren Drittel für den Titel auf der ersten Folie */
     .reveal .slides section:first-child h1 {
       opacity: 0.5;
+      position: absolute;
+      bottom: 20%; /* Platziert im unteren Drittel */
+      left: 50%;
+      transform: translateX(-50%); /* Zentriert horizontal */
     }
   </style>
 </head>
@@ -60,9 +64,9 @@
         <h1>Projekt Icarus</h1>
       </section>
 
-      <!-- Slide 2: Selbststartendes Video, kein Titel -->
+      <!-- Slide 2: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" autoplay loop muted>
+        <video width="80%" autoplay muted data-video-id="video1">
           <source src="videos/Icarus_Animation.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -85,9 +89,9 @@
         </div>
       </section>
 
-      <!-- Slide 5: Selbststartendes Video, kein Titel -->
+      <!-- Slide 5: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" autoplay loop muted data-video-id="video2">
+        <video width="80%" autoplay muted data-video-id="video2">
           <source src="videos/flug.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -118,19 +122,19 @@
   <script>
     Reveal.initialize({
       autoSlide: 3000, // 3 Sekunden pro Folie, außer bei Videos
-      loop: true, // Endlosschleife
+      loop: true, // Endlosschleife für die gesamte Präsentation
       controls: true, // Navigationspfeile
       progress: true, // Fortschrittsbalken
       transition: 'fade', // Fade-Übergänge
       backgroundTransition: 'zoom' // Hintergrundübergang
     });
 
-		// Automatischer Wechsel zur nächsten Folie nach Videoende
+    // Automatischer Wechsel zur nächsten Folie nach Videoende
     document.querySelectorAll('video[data-video-id]').forEach(video => {
       video.addEventListener('ended', () => {
         Reveal.next(); // Wechselt zur nächsten Folie
-			});
-		});
+      });
+    });
   </script>
 </body>
 </html>
