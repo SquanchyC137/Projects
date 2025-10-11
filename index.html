@@ -16,7 +16,7 @@
       color: #ffffff;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .reveal p {
+    .reveal p, .reveal figcaption {
       font-size: 1.2em;
       color: #ddd;
     }
@@ -41,28 +41,38 @@
       max-width: 30%;
       max-height: 50vh;
     }
-    /* Für Vollbild-Hintergrund */
-    .background-slide {
-      background-size: cover;
-      background-position: center;
+    /* Stil für die erste Folie */
+    .first-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    /* 50% Transparenz und Positionierung im unteren Drittel für den Titel auf der ersten Folie */
-    .reveal .slides section:first-child h1 {
-      opacity: 0.7;
+    .first-slide img {
+      max-width: 70%;
+      max-height: 50vh;
+    }
+    .first-slide figcaption {
+      opacity: 0.3; /* 30% durchsichtig */
       position: absolute;
-      bottom: 50%; /* Platziert im unteren Drittel */
+      bottom: 20%; /* Unteres Drittel */
       left: 50%;
-      transform: translateX(-50%); /* Zentriert horizontal */
-			transform: translateY(-200%); /* Zentriert horizontal */
+      transform: translateX(-50%); /* Horizontal zentriert */
+      font-size: 1.5em;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
-      <!-- Slide 1: Name/Vorstellung + Vollbild-Hintergrund -->
-      <section data-background="images/group.jpg" class="background-slide">
-        <h1>Projekt Icarus</h1>
+      <!-- Slide 1: Bild + Bildunterschrift im unteren Drittel, 30% durchsichtig -->
+      <section class="first-slide">
+        <figure>
+          <img src="images/group.jpg" alt="Projekt Icarus">
+          <figcaption>Projekt Icarus</figcaption>
+        </figure>
       </section>
 
       <!-- Slide 2: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
