@@ -46,6 +46,10 @@
       background-size: cover;
       background-position: center;
     }
+		/* 50% Transparenz für den Titel auf der ersten Folie */
+    .reveal .slides section:first-child h1 {
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
@@ -53,8 +57,7 @@
     <div class="slides">
       <!-- Slide 1: Name/Vorstellung + Vollbild-Hintergrund -->
       <section data-background="images/group.jpg" class="background-slide">
-        <h1>Max Knoblauch</h1>
-        <p>Project Icarus</p>
+        <h1>Projekt Icarus</h1>
       </section>
 
       <!-- Slide 2: Selbststartendes Video, kein Titel -->
@@ -84,7 +87,7 @@
 
       <!-- Slide 5: Selbststartendes Video, kein Titel -->
       <section data-autoslide="0">
-        <video width="80%" autoplay loop muted>
+        <video width="80%" autoplay loop muted data-video-id="video2">
           <source src="videos/flug.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -121,6 +124,13 @@
       transition: 'fade', // Fade-Übergänge
       backgroundTransition: 'zoom' // Hintergrundübergang
     });
+
+		// Automatischer Wechsel zur nächsten Folie nach Videoende
+    document.querySelectorAll('video[data-video-id]').forEach(video => {
+      video.addEventListener('ended', () => {
+        Reveal.next(); // Wechselt zur nächsten Folie
+			});
+		});
   </script>
 </body>
 </html>
