@@ -49,7 +49,7 @@
     .first-slide figcaption {
       opacity: 0.5; /* 30% durchsichtig */
       position: absolute;
-      bottom: 15%; /* Unteres Drittel */
+      bottom: 12%; /* Unteres Drittel */
       left: 50%;
       transform: translateX(-50%); /* Horizontal zentriert */
       font-size: 1.6em;
@@ -134,12 +134,28 @@
       transition: 'fade', // Fade-Übergänge
       backgroundTransition: 'zoom' // Hintergrundübergang
     });
-
-    // Automatischer Wechsel zur nächsten Folie nach Videoende
+		
+		// Automatischer Wechsel zur nächsten Folie nach Videoende
     document.querySelectorAll('video[data-video-id]').forEach(video => {
       video.addEventListener('ended', () => {
         Reveal.next(); // Wechselt zur nächsten Folie
       });
+    });
+
+    // Video-Logik beim Betreten der Folie
+    Reveal.on('slidechanged', event => {
+      const currentSlide = event.currentSlide;
+      const video = currentSlide.querySelector('video[data-video-id]');
+      if (video) {
+        if (video.ended) {
+          // Video ist abgeschlossen: Zurücksetzen und neu abspielen
+          video.currentTime = 0;
+          video.play();
+        } else if (video.paused) {
+          // Video ist pausiert: Fortsetzen
+          video.play();
+        }
+      }
     });
   </script>
 </body>
