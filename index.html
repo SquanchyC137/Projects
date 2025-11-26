@@ -119,6 +119,13 @@
         width: 95% !important;
         max-width: 95vw;
       }
+      
+      /* Hochformat-Video auf Mobile: Volle Höhe nutzen */
+      .portrait-video video {
+        width: auto !important;
+        height: 80vh !important;
+        max-width: 95vw;
+      }
     }
 
     /* Sehr kleine Bildschirme */
@@ -146,7 +153,7 @@
 
       <!-- Slide 2: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" autoplay muted playsinline data-video-id="video1">
+        <video width="80%" muted playsinline data-video-id="video1" preload="auto">
           <source src="videos/Icarus_Animation.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -170,8 +177,8 @@
       </section>
 
       <!-- Slide 5: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
-      <section data-autoslide="0">
-        <video width="80%" autoplay muted playsinline data-video-id="video2">
+      <section data-autoslide="0" class="portrait-video">
+        <video width="80%" muted playsinline data-video-id="video2" preload="auto">
           <source src="videos/flug.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -226,11 +233,15 @@
       const currentSlide = event.currentSlide;
       const video = currentSlide.querySelector('video[data-video-id]');
       if (video) {
-        if (video.ended) {
-          video.currentTime = 0;
-          video.play();
-        } else if (video.paused) {
-          video.play();
+        video.currentTime = 0;
+        // Promise-basiertes Abspielen für bessere Mobile-Kompatibilität
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Autoplay verhindert:', error);
+            // Fallback: Versuche nach kurzer Verzögerung nochmal
+            setTimeout(() => video.play(), 100);
+          });
         }
       }
     });
