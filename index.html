@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Projektpräsentation</title>
   <link rel="stylesheet" href="dist/reset.css">
   <link rel="stylesheet" href="dist/reveal.css">
@@ -25,6 +25,8 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       max-height: 60vh;
+      max-width: 90vw;
+      object-fit: contain;
     }
     .reveal section {
       background: linear-gradient(135deg, #1a1a1a, #2c3e50);
@@ -34,28 +36,100 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100%;
     }
+    
     /* Für nebeneinander liegende Bilder */
     .image-row {
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 20px;
+      width: 100%;
+      height: 100%;
     }
     .image-row img {
       max-width: 30%;
-      max-height: 50vh;
+      max-height: 70vh;
+      object-fit: contain;
     }
+    
     /* Stil für die Bildunterschrift auf der ersten Folie */
+    .first-slide {
+      position: relative;
+    }
+    .first-slide figure {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .first-slide img {
+      max-height: 80vh;
+      max-width: 90vw;
+    }
     .first-slide figcaption {
-      opacity: 0.5; /* 30% durchsichtig */
+      opacity: 0.5;
       position: absolute;
-      bottom: 12%; /* Unteres Drittel */
+      bottom: 10%;
       left: 50%;
-      transform: translateX(-50%); /* Horizontal zentriert */
+      transform: translateX(-50%);
       font-size: 1.6em;
       color: #ffffff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-			font-weight: bold; /* Fette Schrift */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* Mobile Optimierungen */
+    @media (max-width: 768px) {
+      .reveal p, .reveal figcaption {
+        font-size: 1em;
+      }
+      
+      .first-slide figcaption {
+        font-size: 1.2em;
+        bottom: 15%;
+      }
+      
+      .image-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .image-row img {
+        max-width: 80%;
+        max-height: 25vh;
+      }
+      
+      .reveal img, .reveal video {
+        max-height: 70vh;
+        max-width: 95vw;
+        border-width: 1px;
+      }
+      
+      .reveal section {
+        padding: 10px;
+      }
+      
+      /* Spezielle Regel für Videos auf Mobile */
+      .reveal video {
+        width: 95% !important;
+        max-width: 95vw;
+      }
+    }
+
+    /* Sehr kleine Bildschirme */
+    @media (max-width: 480px) {
+      .first-slide figcaption {
+        font-size: 1em;
+      }
+      
+      .image-row img {
+        max-height: 20vh;
+      }
     }
   </style>
 </head>
@@ -72,7 +146,7 @@
 
       <!-- Slide 2: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" autoplay muted data-video-id="video1">
+        <video width="80%" autoplay muted playsinline data-video-id="video1">
           <source src="videos/Icarus_Animation.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -97,7 +171,7 @@
 
       <!-- Slide 5: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" autoplay muted data-video-id="video2">
+        <video width="80%" autoplay muted playsinline data-video-id="video2">
           <source src="videos/flug.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -127,18 +201,23 @@
   <script src="dist/reveal.js"></script>
   <script>
     Reveal.initialize({
-      autoSlide: 4000, // 3 Sekunden pro Folie, außer bei Videos
-      loop: true, // Endlosschleife für die gesamte Präsentation
-      controls: true, // Navigationspfeile
-      progress: true, // Fortschrittsbalken
-      transition: 'fade', // Fade-Übergänge
-      backgroundTransition: 'zoom' // Hintergrundübergang
+      autoSlide: 4000,
+      loop: true,
+      controls: true,
+      progress: true,
+      transition: 'fade',
+      backgroundTransition: 'zoom',
+      // Mobile-spezifische Einstellungen
+      touch: true,
+      embedded: false,
+      width: '100%',
+      height: '100%'
     });
-		
-		// Automatischer Wechsel zur nächsten Folie nach Videoende
+    
+    // Automatischer Wechsel zur nächsten Folie nach Videoende
     document.querySelectorAll('video[data-video-id]').forEach(video => {
       video.addEventListener('ended', () => {
-        Reveal.next(); // Wechselt zur nächsten Folie
+        Reveal.next();
       });
     });
 
@@ -148,11 +227,9 @@
       const video = currentSlide.querySelector('video[data-video-id]');
       if (video) {
         if (video.ended) {
-          // Video ist abgeschlossen: Zurücksetzen und neu abspielen
           video.currentTime = 0;
           video.play();
         } else if (video.paused) {
-          // Video ist pausiert: Fortsetzen
           video.play();
         }
       }
