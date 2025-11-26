@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projektpräsentation</title>
   <link rel="stylesheet" href="dist/reset.css">
   <link rel="stylesheet" href="dist/reveal.css">
@@ -25,8 +26,6 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       max-height: 60vh;
-      max-width: 90vw;
-      object-fit: contain;
     }
     .reveal section {
       background: linear-gradient(135deg, #1a1a1a, #2c3e50);
@@ -36,140 +35,28 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
     }
-    
     /* Für nebeneinander liegende Bilder */
     .image-row {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 20px;
-      width: 100%;
-      height: 100%;
     }
     .image-row img {
       max-width: 30%;
-      max-height: 70vh;
-      object-fit: contain;
+      max-height: 50vh;
     }
-    
     /* Stil für die Bildunterschrift auf der ersten Folie */
-    .first-slide {
-      position: relative;
-    }
-    .first-slide figure {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .first-slide img {
-      max-height: 80vh;
-      max-width: 90vw;
-    }
     .first-slide figcaption {
-      opacity: 0.5;
+      opacity: 0.5; /* 30% durchsichtig */
       position: absolute;
-      bottom: 10%;
+      bottom: 12%; /* Unteres Drittel */
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%); /* Horizontal zentriert */
       font-size: 1.6em;
       color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    /* Mobile Optimierungen */
-    @media (max-width: 768px) {
-      .reveal p, .reveal figcaption {
-        font-size: 1em;
-      }
-      
-      .first-slide figcaption {
-        font-size: 1.2em;
-        bottom: 15%;
-      }
-      
-      .image-row {
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      .image-row img {
-        max-width: 80%;
-        max-height: 25vh;
-      }
-      
-      .reveal img, .reveal video {
-        max-height: 70vh;
-        max-width: 95vw;
-        border-width: 1px;
-      }
-      
-      .reveal section {
-        padding: 10px;
-      }
-      
-      /* Spezielle Regel für Videos auf Mobile */
-      .reveal video {
-        width: 95% !important;
-        max-width: 95vw;
-      }
-      
-      /* Hochformat-Video auf Mobile: Volle Höhe nutzen */
-      .portrait-video video {
-        width: auto !important;
-        height: 80vh !important;
-        max-width: 95vw;
-      }
-      
-      /* Auf Mobile: Mehrfachbilder verstecken und einzeln anzeigen */
-      .image-row.multi-image {
-        display: none;
-      }
-      
-      .single-mobile-image {
-        display: block !important;
-      }
-      
-      .single-mobile-image img {
-        max-width: 90%;
-        max-height: 70vh;
-      }
-    }
-
-    /* Sehr kleine Bildschirme */
-    @media (max-width: 480px) {
-      .first-slide figcaption {
-        font-size: 1em;
-      }
-      
-      .image-row img {
-        max-height: 20vh;
-      }
-    }
-    
-    /* Auf Desktop: Einzelbilder verstecken, nur Multi-Image zeigen */
-    @media (min-width: 769px) {
-      .single-mobile-image {
-        display: none !important;
-      }
-      
-      .image-row.multi-image {
-        display: flex !important;
-      }
-    }
-    
-    /* Hochformat-Video auch auf Desktop optimieren */
-    .portrait-video video {
-      width: auto;
-      height: 80vh;
-      max-width: 100%;
-      object-fit: contain;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+			font-weight: bold; /* Fette Schrift */
     }
   </style>
 </head>
@@ -186,7 +73,7 @@
 
       <!-- Slide 2: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
       <section data-autoslide="0">
-        <video width="80%" muted playsinline data-video-id="video1" preload="auto">
+        <video width="80%" autoplay muted data-video-id="video1">
           <source src="videos/Icarus_Animation.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -194,49 +81,24 @@
 
       <!-- Slide 3: Drei Bilder nebeneinander (Hochformat), kein Titel -->
       <section>
-        <div class="image-row multi-image">
+        <div class="image-row">
           <img src="images/teil1.jpg" alt="Bild 1">
           <img src="images/flugcomp.jpg" alt="Bild 2">
           <img src="images/teil3.jpg" alt="Bild 3">
         </div>
       </section>
-      
-      <!-- Slide 3a: Einzelbild für Mobile -->
-      <section class="single-mobile-image">
-        <img src="images/teil1.jpg" alt="Bild 1">
-      </section>
-      
-      <!-- Slide 3b: Einzelbild für Mobile -->
-      <section class="single-mobile-image">
-        <img src="images/flugcomp.jpg" alt="Bild 2">
-      </section>
-      
-      <!-- Slide 3c: Einzelbild für Mobile -->
-      <section class="single-mobile-image">
-        <img src="images/teil3.jpg" alt="Bild 3">
-      </section>
 
       <!-- Slide 4: Zwei Bilder nebeneinander (Hochformat), kein Titel -->
       <section>
-        <div class="image-row multi-image">
+        <div class="image-row">
           <img src="images/start1.jpg" alt="Bild 4">
           <img src="images/start2.jpg" alt="Bild 5">
         </div>
       </section>
-      
-      <!-- Slide 4a: Einzelbild für Mobile -->
-      <section class="single-mobile-image">
-        <img src="images/start1.jpg" alt="Bild 4">
-      </section>
-      
-      <!-- Slide 4b: Einzelbild für Mobile -->
-      <section class="single-mobile-image">
-        <img src="images/start2.jpg" alt="Bild 5">
-      </section>
 
       <!-- Slide 5: Selbststartendes Video, kein Titel, kein Loop, Auto-Wechsel nach Ende -->
-      <section data-autoslide="0" class="portrait-video">
-        <video width="80%" muted playsinline data-video-id="video2" preload="auto">
+      <section data-autoslide="0">
+        <video width="80%" autoplay muted data-video-id="video2">
           <source src="videos/flug.mp4" type="video/mp4">
           Dein Browser unterstützt das Video-Tag nicht.
         </video>
@@ -266,63 +128,36 @@
   <script src="dist/reveal.js"></script>
   <script>
     Reveal.initialize({
-      autoSlide: 4000,
-      loop: true,
-      controls: true,
-      progress: true,
-      transition: 'fade',
-      backgroundTransition: 'zoom',
-      // Mobile-spezifische Einstellungen
-      touch: true,
-      embedded: false,
-      width: '100%',
-      height: '100%'
+      autoSlide: 4000, // 3 Sekunden pro Folie, außer bei Videos
+      loop: true, // Endlosschleife für die gesamte Präsentation
+      controls: true, // Navigationspfeile
+      progress: true, // Fortschrittsbalken
+      transition: 'fade', // Fade-Übergänge
+      backgroundTransition: 'zoom' // Hintergrundübergang
     });
-    
-    // Automatischer Wechsel zur nächsten Folie nach Videoende
+		
+		// Automatischer Wechsel zur nächsten Folie nach Videoende
     document.querySelectorAll('video[data-video-id]').forEach(video => {
       video.addEventListener('ended', () => {
-        Reveal.next();
+        Reveal.next(); // Wechselt zur nächsten Folie
       });
     });
 
     // Video-Logik beim Betreten der Folie
     Reveal.on('slidechanged', event => {
-      // Alle Videos pausieren
-      document.querySelectorAll('video[data-video-id]').forEach(v => {
-        v.pause();
-      });
-      
       const currentSlide = event.currentSlide;
       const video = currentSlide.querySelector('video[data-video-id]');
       if (video) {
-        video.currentTime = 0;
-        video.load(); // Video neu laden
-        
-        // Promise-basiertes Abspielen für bessere Mobile-Kompatibilität
-        setTimeout(() => {
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(error => {
-              console.log('Autoplay verhindert, Benutzerinteraktion nötig');
-            });
-          }
-        }, 200);
-      }
-    });
-    
-    // Beim ersten Laden: User-Interaktion ermöglichen
-    let userInteracted = false;
-    document.addEventListener('click', () => {
-      if (!userInteracted) {
-        userInteracted = true;
-        const currentSlide = Reveal.getCurrentSlide();
-        const video = currentSlide.querySelector('video[data-video-id]');
-        if (video && video.paused) {
+        if (video.ended) {
+          // Video ist abgeschlossen: Zurücksetzen und neu abspielen
+          video.currentTime = 0;
+          video.play();
+        } else if (video.paused) {
+          // Video ist pausiert: Fortsetzen
           video.play();
         }
       }
-    }, { once: false });
+    });
   </script>
 </body>
 </html>
